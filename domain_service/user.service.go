@@ -26,3 +26,7 @@ func (us *UserService) Exists(user *entity.User) bool {
 	}
 	return false
 }
+
+func (us *UserService) Delete(user *entity.User) error {
+	return us.repo.Delete(user)
+}

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/KawaiKenta/ddd-go/entity"
-	valueobject "github.com/KawaiKenta/ddd-go/value-object"
+	valueobject "github.com/KawaiKenta/ddd-go/value_object"
 )
 
 type ID int
@@ -16,14 +16,14 @@ type IUserRepository interface {
 
 type InMemoryUserRepository struct {
 	nextId ID
-	users  map[ID]*entity.User
+	users  map[ID]entity.User
 }
 
 // IUserRepositoryを実装したInMemoryUserRepository
 func NewInMemoryUserRepository() *InMemoryUserRepository {
 	return &InMemoryUserRepository{
 		nextId: 1,
-		users:  map[ID]*entity.User{},
+		users:  map[ID]entity.User{},
 	}
 }
 
@@ -32,13 +32,13 @@ func (r *InMemoryUserRepository) FindById(id int) (*entity.User, error) {
 	if !found {
 		return nil, nil
 	}
-	return user, nil
+	return &user, nil
 }
 
 func (r *InMemoryUserRepository) FindByEmail(email *valueobject.Email) (*entity.User, error) {
 	for _, user := range r.users {
 		if user.Email.Value() == email.Value() {
-			return user, nil
+			return &user, nil
 		}
 	}
 	return nil, nil
@@ -49,7 +49,8 @@ func (r *InMemoryUserRepository) Save(user *entity.User) (*entity.User, error) {
 		user.Id = int(r.nextId)
 		r.nextId++
 	}
-	r.users[ID(user.Id)] = user
+	// userの参照ではなく、コピーを保存
+	r.users[ID(user.Id)] = *user
 	return user, nil
 }
 

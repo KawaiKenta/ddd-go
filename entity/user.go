@@ -1,6 +1,6 @@
 package entity
 
-import valueobject "github.com/KawaiKenta/ddd-go/value-object"
+import valueobject "github.com/KawaiKenta/ddd-go/value_object"
 
 type User struct {
 	Id    int
@@ -8,10 +8,10 @@ type User struct {
 	Email *valueobject.Email
 }
 
-func NewUser(id int, name *valueobject.UserName, email *valueobject.Email) *User {
+func NewUser(name *valueobject.UserName, email *valueobject.Email) *User {
 	// nilチェック
 	return &User{
-		Id:    id,
+		Id:    0,
 		Name:  name,
 		Email: email,
 	}
@@ -19,4 +19,12 @@ func NewUser(id int, name *valueobject.UserName, email *valueobject.Email) *User
 
 func (u *User) Equals(other *User) bool {
 	return u.Id == other.Id
+}
+
+func (u *User) ChangeName(name *valueobject.UserName) {
+	u.Name = name
+}
+
+func (u *User) ChangeEmail(email *valueobject.Email) {
+	u.Email = email
 }
