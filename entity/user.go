@@ -9,7 +9,6 @@ type User struct {
 }
 
 func NewUser(name *valueobject.UserName, email *valueobject.Email) *User {
-	// nilチェック
 	return &User{
 		Id:    0,
 		Name:  name,

@@ -1,2 +1,7 @@
 # ddd-go
-DDDをgoで実践
+
+DDD を go で実践
+
+### アーキテクチャ図
+
+![アーキテクチャ図](img/arch.png)

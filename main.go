@@ -21,12 +21,15 @@ func main() {
 	}
 	repo.ShowAll()
 	println("--------------------")
-	// 重複登録テスト、emailが重複するとエラーになる
-	// user, err := userApplicationService.Register("test", "aaa@exadmple.com")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Printf("user: %+v\n", user)
+	//重複登録テスト、emailが重複するとエラーになる
+	user, err := userApplicationService.Register("test", "aaa@exadmple.com")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("user: %+v\n", user)
+	repo.ShowAll()
+	println("--------------------")
+
 	// sameUser, err := userApplicationService.Register("test", "aaa@exadmple.com")
 	// if err != nil {
 	// 	panic(err)
@@ -34,11 +37,12 @@ func main() {
 	// fmt.Printf("user2: %+v\n", sameUser)
 
 	// updateテスト 成功例
-	// _, err := userApplicationService.Update(1, "updated_test1", "updatetest@gmail.com")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// repo.ShowAll()
+	_, err = userApplicationService.Update(1, "updated_test1", "updatetest@gmail.com")
+	if err != nil {
+		panic(err)
+	}
+	repo.ShowAll()
+	println("--------------------")
 
 	// updateテスト 失敗例
 	// すでに存在するemailを指定するとエラーになる
@@ -55,7 +59,7 @@ func main() {
 	repo.ShowAll()
 	// deleteテスト 失敗例
 	// 存在しないidを指定するとエラーになる
-	if err := userApplicationService.Delete(4); err != nil {
-		panic(err)
-	}
+	// if err := userApplicationService.Delete(4); err != nil {
+	// 	panic(err)
+	// }
 }
